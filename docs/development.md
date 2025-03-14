@@ -1,68 +1,68 @@
-# Development
+# 开发指南
 
-Showtime requires:
+Showtime 需要：
 
-* Go >= 1.16
-* Node >= 14
+* Go >= 1.21
+* Node >= 18
 * Yarn
 
-## Setup
+## 环境设置
 
-Clone showtime/server source from git:
+从 git 克隆 sscaifesu/showtime 源代码：
 
 ```bash
-$ git clone https://github.com/showtime/server.git && cd server
+$ git clone https://github.com/sscaifesu/showtime.git && cd showtime
 ```
 
-Install frontend dependencies:
+安装前端依赖：
 
 ```bash
 $ (cd ui && yarn)
 ```
 
-## Start Server
+## 启动服务器
 
-Start the frontend development server:
+启动前端开发服务器：
 
 ```bash
-$ (cd ui && yarn start)
+$ (cd ui && yarn dev)
 ```
 
-Create a file named `showtime.config.development.local` inside the showtime folder with the content:
+在 showtime 文件夹中创建一个名为 `showtime.config.development.local` 的文件，内容如下：
 
 ```ini
-SHOWTIME_EXTERNAL_IP=YOURIP
+SHOWTIME_EXTERNAL_IP=您的IP地址
 ```
 
-Start the backend development server:
+启动后端开发服务器：
 
 ```bash
 $ go run main.go serve
 ```
 
-## Build
+## 构建
 
-Build the frontend:
+构建前端：
 
 ```bash
 $ (cd ui && yarn build)
 ```
 
-Build the backend:
+构建后端：
 
 ```bash
 $ go build -ldflags "-X main.version=$(git describe --tags HEAD) -X main.mode=prod" -o showtime ./main.go
 ```
 
-## Lint
+## 代码检查
 
-Showtime uses [golangci-lint](https://github.com/golangci/golangci-lint) for linting.
+Showtime 使用 [golangci-lint](https://github.com/golangci/golangci-lint) 进行代码检查。
 
-Install golangci-lint:
+安装 golangci-lint：
 
-See [golangci-lint install](https://github.com/golangci/golangci-lint#install).
+参见 [golangci-lint 安装说明](https://github.com/golangci/golangci-lint#install)。
 
-Run lint:
+运行代码检查：
 
 ```bash
 $ golangci-lint run
