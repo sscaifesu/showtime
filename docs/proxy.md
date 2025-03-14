@@ -1,80 +1,78 @@
-# Proxy
+# 代理配置
 
-!> When using a proxy enable `SCREEGO_TRUST_PROXY_HEADERS`. See [Configuration](config.md).
+!> 使用代理时，请启用 `SHOWTIME_TRUST_PROXY_HEADERS`。参见[配置说明](config.md)。
 
 ## nginx
 
-### At root path
+### 在根路径
 
 ```nginx
-upstream screego {
-  # Set this to the address configured in
-  # SCREEGO_SERVER_ADDRESS. Default 5050
+upstream showtime {
+  # 设置为 SHOWTIME_SERVER_ADDRESS 中配置的地址。
+  # 默认为 5050
   server 127.0.0.1:5050;
 }
 
 server {
   listen 80;
 
-  # Here goes your domain / subdomain
-  server_name screego.example.com;
+  # 这里是您的域名/子域名
+  server_name showtime.example.com;
 
   location / {
-    # Proxy to screego
-    proxy_pass         http://screego;
+    # 代理到 showtime
+    proxy_pass         http://showtime;
     proxy_http_version 1.1;
 
-    # Set headers for proxying WebSocket
+    # 设置用于代理 WebSocket 的头信息
     proxy_set_header   Upgrade $http_upgrade;
     proxy_set_header   Connection "upgrade";
     proxy_redirect     http:// $scheme://;
 
-    # Set proxy headers
+    # 设置代理头信息
     proxy_set_header   X-Real-IP $remote_addr;
     proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header   X-Forwarded-Proto http;
 
-    # The proxy must preserve the host because screego verifies it with the origin
-    # for WebSocket connections
+    # 代理必须保留主机，因为 showtime 会使用它与 WebSocket 连接的源进行验证
     proxy_set_header   Host $http_host;
   }
 }
 ```
 
-### At a sub path
+### 在子路径
 
 ```nginx
-upstream screego {
-  # Set this to the address configured in
-  # SCREEGO_SERVER_ADDRESS. Default 5050
+upstream showtime {
+  # 设置为 SHOWTIME_SERVER_ADDRESS 中配置的地址。
+  # 默认为 5050
   server 127.0.0.1:5050;
 }
 
 server {
   listen 80;
 
-  # Here goes your domain / subdomain
-  server_name screego.example.com;
+  # 这里是您的域名/子域名
+  server_name showtime.example.com;
 
-  location /screego/ {
-    rewrite ^/screego(/.*) $1 break;
+  location /showtime/ {
+    rewrite ^/showtime(/.*) $1 break;
   
-    # Proxy to screego
-    proxy_pass         http://screego;
+    # 代理到 showtime
+    proxy_pass         http://showtime;
     proxy_http_version 1.1;
 
-    # Set headers for proxying WebSocket
+    # 设置用于代理 WebSocket 的头信息
     proxy_set_header   Upgrade $http_upgrade;
     proxy_set_header   Connection "upgrade";
     proxy_redirect     http:// $scheme://;
 
-    # Set proxy headers
+    # 设置代理头信息
     proxy_set_header   X-Real-IP $remote_addr;
     proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header   X-Forwarded-Proto http;
 
-    # The proxy must preserve the host because screego verifies it with the origin
-    # for WebSocket connections
+    # 代理必须保留主机，因为 showtime 会使用它与 WebSocket 连接的源进行验证
     proxy_set_header   Host $http_host;
   }
 }
@@ -82,56 +80,54 @@ server {
 
 ## Apache (httpd)
 
-The following modules are required:
+需要以下模块：
 
 * mod_proxy
 * mod_proxy_wstunnel
 * mod_proxy_http
 
-### At root path
+### 在根路径
 
 ```apache
 <VirtualHost *:80>
-    ServerName screego.example.com
+    ServerName showtime.example.com
     Keepalive On
 
-    # The proxy must preserve the host because screego verifies it with the origin
-    # for WebSocket connections
+    # 代理必须保留主机，因为 showtime 会使用它与 WebSocket 连接的源进行验证
     ProxyPreserveHost On
 
-    # Replace 5050 with the port defined in SCREEGO_SERVER_ADDRESS.
-    # Default 5050
+    # 将 5050 替换为 SHOWTIME_SERVER_ADDRESS 中定义的端口。
+    # 默认为 5050
 
-    # Proxy web socket requests to /stream
+    # 将 WebSocket 请求代理到 /stream
     ProxyPass "/stream" ws://127.0.0.1:5050/stream retry=0 timeout=5
 
-    # Proxy all other requests to /
+    # 将所有其他请求代理到 /
     ProxyPass "/" http://127.0.0.1:5050/ retry=0 timeout=5
 
     ProxyPassReverse / http://127.0.0.1:5050/
 </VirtualHost>
 ```
 
-### At a sub path
+### 在子路径
 
 ```apache
 <VirtualHost *:80>
-    ServerName screego.example.com
+    ServerName showtime.example.com
     Keepalive On
 
-    Redirect 301 "/screego" "/screego/"
+    Redirect 301 "/showtime" "/showtime/"
 
-    # The proxy must preserve the host because screego verifies it with the origin
-    # for WebSocket connections
+    # 代理必须保留主机，因为 showtime 会使用它与 WebSocket 连接的源进行验证
     ProxyPreserveHost On
 
-    # Proxy web socket requests to /stream
-    ProxyPass "/screego/stream" ws://127.0.0.1:5050/stream retry=0 timeout=5
+    # 将 WebSocket 请求代理到 /stream
+    ProxyPass "/showtime/stream" ws://127.0.0.1:5050/stream retry=0 timeout=5
 
-    # Proxy all other requests to /
-    ProxyPass "/screego/" http://127.0.0.1:5050/ retry=0 timeout=5
-    #                 ^- !!trailing slash is required!!
+    # 将所有其他请求代理到 /
+    ProxyPass "/showtime/" http://127.0.0.1:5050/ retry=0 timeout=5
+    #                 ^- !!尾部斜杠是必需的!!
 
-    ProxyPassReverse /screego/ http://127.0.0.1:5050/
+    ProxyPassReverse /showtime/ http://127.0.0.1:5050/
 </VirtualHost>
 ```
