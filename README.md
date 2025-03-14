@@ -1,53 +1,39 @@
 <p align="center">
-    <a href="https://showtime.net">
+    <a href="https://github.com/sscaifesu/showtime">
         <img src="docs/logo.png" />
     </a>
 </p>
 
 
-<h1 align="center">Showtime/server</h1>
+<h1 align="center">Showtime</h1>
 <p align="center"><i>screen sharing for developers</i></p>
 
 <p align="center">
-    <a href="https://github.com/showtime/server/actions?query=workflow%3Abuild">
-        <img alt="Build Status" src="https://github.com/showtime/server/workflows/build/badge.svg">
+    <a href="https://github.com/sscaifesu/showtime/actions?query=workflow%3Abuild">
+        <img alt="Build Status" src="https://github.com/sscaifesu/showtime/workflows/build/badge.svg">
     </a> 
-    <a href="https://github.com/showtime/server/pkgs/container/server">
-        <img alt="Build Status" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fipitio%2Fghcr-pulls%2Fmaster%2Findex.json&query=%24%5B%3F(%40.owner%3D%3D%22showtime%22%20%26%26%20%40.repo%3D%3D%22server%22%20%26%26%20%40.image%3D%3D%22server%22)%5D.pulls&logo=github&label=pulls">
-    </a> 
-    <a href="https://goreportcard.com/report/github.com/showtime/server">
-        <img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/showtime/server">
+    <a href="https://goreportcard.com/report/github.com/sscaifesu/showtime">
+        <img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/sscaifesu/showtime">
     </a>
-    <a href="https://hub.docker.com/r/showtime/server">
-        <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/showtime/server.svg">
-    </a>
-    <a href="https://github.com/showtime/server/releases/latest">
-        <img alt="latest release" src="https://img.shields.io/github/release/showtime/server.svg">
+    <a href="https://github.com/sscaifesu/showtime/releases/latest">
+        <img alt="latest release" src="https://img.shields.io/github/release/sscaifesu/showtime.svg">
     </a>
 </p>
 
-## Intro
+## 简介
 
-In the past I've had some problems sharing my screen with coworkers using
-corporate chatting solutions like Microsoft Teams. I wanted to show them some
-of my code, but either the stream lagged several seconds behind or the quality
-was so poor that my colleagues couldn't read the code. Or both.
+Showtime 是一个开源的屏幕共享工具，专为开发者设计。它提供了简单、安全、高效的屏幕共享解决方案，解决了在使用其他会议软件时可能遇到的延迟高、质量差的问题。
 
-That's why I created showtime. It allows you to share your screen with good
-quality and low latency. Showtime is an addition to existing software and 
-only helps to share your screen. Nothing else (:.
+## 特性
 
-## Features
+* 多用户屏幕共享
+* 通过 WebRTC 进行安全传输
+* 低延迟 / 高分辨率
+* 通过 Docker 或单一二进制文件简单安装
+* 集成 TURN 服务器，解决 NAT 穿透问题
 
-* Multi User Screenshare
-* Secure transfer via WebRTC
-* Low latency / High resolution
-* Simple Install via Docker / single binary
-* Integrated TURN Server see [NAT Traversal](https://showtime.net/#/nat-traversal)
+[安装说明](https://github.com/sscaifesu/showtime/blob/main/docs/install.md) ᛫ [配置说明](https://github.com/sscaifesu/showtime/blob/main/docs/config.md) ᛫ [用户手册](https://github.com/sscaifesu/showtime/blob/main/docs/user-guide.md)
 
-[Demo / Public Instance](https://app.showtime.net/) ᛫ [Installation](https://showtime.net/#/install) ᛫ [Configuration](https://showtime.net/#/config) 
+## 版本控制
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the
-[tags on this repository](https://github.com/showtime/server/tags).
+我们使用 [SemVer](http://semver.org/) 进行版本控制。有关可用版本，请参阅[此存储库上的标签](https://github.com/sscaifesu/showtime/tags)。
