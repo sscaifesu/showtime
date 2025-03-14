@@ -1,17 +1,17 @@
-# Frequently Asked Questions
+# 常见问题解答
 
-## Stream doesn't load
+## 流媒体无法加载
 
-Check that
-* you are using https to access Screego.
-* `SCREEGO_EXTERNAL_IP` is set to your external IP. See [Configuration](config.md)
-* you are using TURN for NAT-Traversal. See [NAT-Traversal](nat-traversal.md). *This isn't allowed for app.screego.net, you've to self-host Screego*
-* your browser doesn't block WebRTC (extensions or other settings)
-* you have opened ports in your firewall. By default 5050, 3478 and any UDP port when using TURN.
+请检查以下几点：
+* 您是否使用 HTTPS 访问 Showtime。
+* `SHOWTIME_EXTERNAL_IP` 是否设置为您的外部 IP 地址。参见[配置说明](config.md)
+* 您是否使用 TURN 进行 NAT 穿透。参见[NAT 穿透](nat-traversal.md)。
+* 您的浏览器是否阻止了 WebRTC（扩展程序或其他设置）
+* 您是否在防火墙中开放了端口。默认情况下，使用 TURN 时需要开放 5050、3478 和任何 UDP 端口。
 
-## Automatically create room on join
+## 加入时自动创建房间
 
-Sometimes you want to reuse the screego room, but always have to recreate it.
-By passing `create=true` in the url, you can automatically create the room if it does not exist.
+有时您想重复使用 Showtime 房间，但总是需要重新创建它。
+通过在 URL 中传递 `create=true` 参数，如果房间不存在，您可以自动创建房间。
 
-Example: https://app.screego.net/?room=not-existing-room&create=true
+示例：https://您的域名:5050/?room=不存在的房间&create=true
